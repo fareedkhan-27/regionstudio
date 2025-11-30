@@ -72,7 +72,7 @@ const MapControls: React.FC<MapControlsProps> = ({
           <div>
             <h1 className="text-xl font-bold">Choropleth Studio</h1>
             <p className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>
-              Visualize global data regions
+              Visualize global data regions | by Fareed Khan
             </p>
           </div>
           <button 
