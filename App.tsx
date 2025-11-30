@@ -211,6 +211,14 @@ const App: React.FC = () => {
             singleColor={singleColor}
             isDarkMode={isDarkMode}
           />
+          {/* Footer */}
+          <footer
+            className={`px-5 py-2 text-center text-[11px] ${
+              isDarkMode ? 'text-slate-500' : 'text-gray-500'
+            }`}
+          >
+            © {new Date().getFullYear()} Region Studio — Built with ❤️ by <span class="text-[#BE2BBB] font-medium">Fareed Khan</span>
+          </footer>
         </main>
       </div>
     </>
