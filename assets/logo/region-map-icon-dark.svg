@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Dark background -->
+  <rect width="512" height="512" fill="#0D0D0C"/>
+  
+  <!-- Main globe symbol -->
+  <g transform="translate(256, 256)">
+    <!-- Outer ring -->
+    <circle cx="0" cy="0" r="180" fill="none" stroke="#E8E8E4" stroke-width="14"/>
+    
+    <!-- Inner accent ring -->
+    <circle cx="0" cy="0" r="155" fill="none" stroke="#2A9D8F" stroke-width="4"/>
+    
+    <!-- Central meridian (vertical ellipse) -->
+    <ellipse cx="0" cy="0" rx="63" ry="145" fill="none" stroke="#E8E8E4" stroke-width="3"/>
+    
+    <!-- Equator line -->
+    <line x1="-145" y1="0" x2="145" y2="0" stroke="#E8E8E4" stroke-width="3"/>
+    
+    <!-- Upper latitude curve -->
+    <path d="M -130 -65 Q 0 -100 130 -65" fill="none" stroke="#A8A8A2" stroke-width="2"/>
+    
+    <!-- Lower latitude curve -->
+    <path d="M -130 65 Q 0 100 130 65" fill="none" stroke="#A8A8A2" stroke-width="2"/>
+    
+    <!-- Side meridian curves -->
+    <path d="M -100 -110 Q -118 0 -100 110" fill="none" stroke="#A8A8A2" stroke-width="2"/>
+    <path d="M 100 -110 Q 118 0 100 110" fill="none" stroke="#A8A8A2" stroke-width="2"/>
+    
+    <!-- Location marker -->
+    <g transform="translate(50, -45)">
+      <!-- Pin head -->
+      <circle cx="0" cy="0" r="28" fill="#2A9D8F" stroke="#E8E8E4" stroke-width="3"/>
+      <!-- Inner dot -->
+      <circle cx="0" cy="0" r="9" fill="#0D0D0C"/>
+      <!-- Pin point -->
+      <path d="M -12 22 L 12 22 L 0 45 Z" fill="#2A9D8F" stroke="#E8E8E4" stroke-width="2.5" stroke-linejoin="round"/>
+    </g>
+  </g>
+</svg>

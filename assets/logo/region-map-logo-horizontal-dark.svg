@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 160" width="600" height="160">
+  <!-- Dark background -->
+  <rect width="600" height="160" fill="#0D0D0C"/>
+  
+  <!-- Globe symbol (compact) -->
+  <g transform="translate(80, 80)">
+    <!-- Outer ring -->
+    <circle cx="0" cy="0" r="55" fill="none" stroke="#E8E8E4" stroke-width="4"/>
+    
+    <!-- Inner accent ring -->
+    <circle cx="0" cy="0" r="47" fill="none" stroke="#2A9D8F" stroke-width="2"/>
+    
+    <!-- Central meridian -->
+    <ellipse cx="0" cy="0" rx="19" ry="43" fill="none" stroke="#E8E8E4" stroke-width="1.5"/>
+    
+    <!-- Equator -->
+    <line x1="-43" y1="0" x2="43" y2="0" stroke="#E8E8E4" stroke-width="1.5"/>
+    
+    <!-- Latitude curves -->
+    <path d="M -38 -20 Q 0 -32 38 -20" fill="none" stroke="#A8A8A2" stroke-width="1"/>
+    <path d="M -38 20 Q 0 32 38 20" fill="none" stroke="#A8A8A2" stroke-width="1"/>
+    
+    <!-- Location marker -->
+    <g transform="translate(16, -14)">
+      <circle cx="0" cy="0" r="8" fill="#2A9D8F" stroke="#E8E8E4" stroke-width="1.5"/>
+      <circle cx="0" cy="0" r="2.5" fill="#0D0D0C"/>
+      <path d="M -4 6 L 4 6 L 0 14 Z" fill="#2A9D8F" stroke="#E8E8E4" stroke-width="1" stroke-linejoin="round"/>
+    </g>
+  </g>
+  
+  <!-- Wordmark -->
+  <text x="160" y="72" font-family="'Outfit', 'Segoe UI', system-ui, sans-serif" font-size="42" font-weight="700" fill="#E8E8E4" letter-spacing="1">REGION MAP</text>
+  
+  <!-- Tagline -->
+  <text x="162" y="105" font-family="'Instrument Sans', 'Segoe UI', system-ui, sans-serif" font-size="16" font-weight="400" fill="#2A9D8F" letter-spacing="6">GENERATOR</text>
+</svg>
