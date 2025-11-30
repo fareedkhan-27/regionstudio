@@ -137,7 +137,7 @@ const App: React.FC = () => {
     <div className={`flex flex-col md:flex-row h-screen w-screen overflow-hidden ${isDarkMode ? 'bg-slate-950' : 'bg-gray-50'}`}>
       
       {/* Sidebar Controls */}
-      <div className="flex-shrink-0 z-20 h-full relative shadow-xl">
+      <div className="flex-shrink-0 z-20 h-1/2 md:h-full w-full md:w-auto relative shadow-xl">
         <MapControls 
           mode={mode} setMode={setMode}
           singleText={singleText} setSingleText={setSingleText}

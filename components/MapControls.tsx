@@ -64,7 +64,7 @@ const MapControls: React.FC<MapControlsProps> = ({
   const btnBase = `py-2 px-4 rounded-lg font-semibold text-sm transition-colors shadow-sm`;
 
   return (
-    <div className={`flex flex-col h-full w-full md:w-96 border-r overflow-y-auto ${isDarkMode ? 'bg-slate-900 border-slate-800 text-slate-200' : 'bg-white border-gray-200 text-gray-800'}`}>
+    <div className={`flex flex-col h-full w-full md:w-96 border-b md:border-b-0 md:border-r overflow-y-auto ${isDarkMode ? 'bg-slate-900 border-slate-800 text-slate-200' : 'bg-white border-gray-200 text-gray-800'}`}>
       
       {/* Header */}
       <div className={`p-6 border-b ${isDarkMode ? 'border-slate-800' : 'border-gray-100'}`}>
