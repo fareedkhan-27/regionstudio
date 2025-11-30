@@ -220,7 +220,7 @@ export const COUNTRY_ALIASES: CountryDefinition[] = [
   { numeric: "728", iso2: "SS", iso3: "SSD", name: "South Sudan", aliases: ["south sudan", "ss", "ssd"] },
   { numeric: "724", iso2: "ES", iso3: "ESP", name: "Spain", aliases: ["spain", "es", "esp"] },
   { numeric: "144", iso2: "LK", iso3: "LKA", name: "Sri Lanka", aliases: ["sri lanka", "lk", "lka"] },
-  { numeric: "736", iso2: "SD", iso3: "SDN", name: "Sudan", aliases: ["sudan", "sd", "sdn"] },
+  { numeric: "729", iso2: "SD", iso3: "SDN", name: "Sudan", aliases: ["sudan", "sd", "sdn"] },
   { numeric: "740", iso2: "SR", iso3: "SUR", name: "Suriname", aliases: ["suriname", "sr", "sur"] },
   { numeric: "744", iso2: "SJ", iso3: "SJM", name: "Svalbard and Jan Mayen", aliases: ["svalbard", "sj", "sjm"] },
   { numeric: "752", iso2: "SE", iso3: "SWE", name: "Sweden", aliases: ["sweden", "se", "swe"] },
