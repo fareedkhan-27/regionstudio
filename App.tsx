@@ -1,5 +1,4 @@
-
-import React, { useState, useRef, useEffect, useMemo } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import MapControls from './components/MapControls';
 import WorldMap from './components/WorldMap';
 import Legend from './components/Legend';
@@ -134,45 +133,87 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className={`flex flex-col md:flex-row h-screen w-screen overflow-hidden ${isDarkMode ? 'bg-slate-950' : 'bg-gray-50'}`}>
-      
-      {/* Sidebar Controls */}
-      <div className="flex-shrink-0 z-20 h-1/2 md:h-full w-full md:w-auto relative shadow-xl">
-        <MapControls 
-          mode={mode} setMode={setMode}
-          singleText={singleText} setSingleText={setSingleText}
-          singleColor={singleColor} setSingleColor={setSingleColor}
-          groups={groups} updateGroup={updateGroup} addGroup={addGroup} removeGroup={removeGroup}
-          onGenerate={handleGenerate} 
-          onExport={handleExport}
-          unknownTerms={unknownTerms}
-          isDarkMode={isDarkMode}
-          toggleTheme={() => setIsDarkMode(!isDarkMode)}
-          applyPreset={applyPreset}
-          clearAll={clearAll}
+    <>
+      {/* App Header */}
+      <header
+        className={`flex items-center gap-3 px-5 py-3 border-b ${
+          isDarkMode ? 'border-slate-800 bg-slate-900' : 'border-gray-200 bg-white'
+        }`}
+      >
+        <img
+          src="/logo/region-map-logo.svg"
+          alt="Region Studio Logo"
+          className="w-9 h-9"
         />
-      </div>
 
-      {/* Main Map Area */}
-      <main className="flex-1 flex flex-col h-full w-full relative">
-        <div className="flex-1 relative">
-          <WorldMap 
-            colorMap={colorMap}
+        <div className="leading-tight">
+          <h1
+            className={`text-xl font-bold ${
+              isDarkMode ? 'text-white' : 'text-gray-800'
+            }`}
+          >
+            Region Studio
+          </h1>
+          <p
+            className={`text-xs ${
+              isDarkMode ? 'text-slate-400' : 'text-gray-500'
+            }`}
+          >
+            Global Region Map Visualizer • by Fareed Khan
+          </p>
+        </div>
+      </header>
+
+      {/* Main Layout */}
+      <div
+        className={`flex flex-col md:flex-row h-[calc(100vh-52px)] w-screen overflow-hidden ${
+          isDarkMode ? 'bg-slate-950' : 'bg-gray-50'
+        }`}
+      >
+        {/* Sidebar Controls */}
+        <div className="flex-shrink-0 z-20 h-1/2 md:h-full w-full md:w-auto relative shadow-xl">
+          <MapControls
+            mode={mode}
+            setMode={setMode}
+            singleText={singleText}
+            setSingleText={setSingleText}
+            singleColor={singleColor}
+            setSingleColor={setSingleColor}
+            groups={groups}
+            updateGroup={updateGroup}
+            addGroup={addGroup}
+            removeGroup={removeGroup}
+            onGenerate={handleGenerate}
+            onExport={handleExport}
+            unknownTerms={unknownTerms}
             isDarkMode={isDarkMode}
-            zoomTrigger={zoomTrigger}
-            onMount={(el) => (svgRef.current = el)}
+            toggleTheme={() => setIsDarkMode(!isDarkMode)}
+            applyPreset={applyPreset}
+            clearAll={clearAll}
           />
         </div>
-        
-        {/* Legend Panel */}
-        <Legend 
-          mode={mode}
-          groups={groups}
-          singleColor={singleColor}
-          isDarkMode={isDarkMode}
-        />
-      </main>
-    </div>
+
+        {/* Main Map Area */}
+        <main className="flex-1 flex flex-col h-full w-full relative">
+          <div className="flex-1 relative">
+            <WorldMap
+              colorMap={colorMap}
+              isDarkMode={isDarkMode}
+              zoomTrigger={zoomTrigger}
+              onMount={(el) => (svgRef.current = el)}
+            />
+          </div>
+
+          {/* Legend Panel */}
+          <Legend
+            mode={mode}
+            groups={groups}
+            singleColor={singleColor}
+            isDarkMode={isDarkMode}
+          />
+        </main>
+      </div>
+    </>
   );
 };
 
