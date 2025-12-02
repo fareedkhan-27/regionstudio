@@ -165,7 +165,7 @@ const App: React.FC = () => {
               isDarkMode ? 'text-white' : 'text-gray-800'
             }`}
           >
-            Region Studio <span className="text-[#BE2BBB] text-xs font-normal ml-1">v1.0</span>
+            Region Studio <span className="text-[#BE2BBB] text-xs font-normal ml-1">v1.1</span>
           </h1>
           <p
             className={`text-xs ${
