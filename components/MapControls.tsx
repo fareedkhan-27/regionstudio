@@ -60,7 +60,8 @@ const MapControls: React.FC<MapControlsProps> = ({
   const [useTransparentBg, setUseTransparentBg] = useState(false);
 
   // Helper styles
-  const inputBase = `w-full text-sm border rounded-lg p-2 outline-none transition-all ${isDarkMode ? 'bg-slate-800 border-slate-700 text-slate-100 focus:border-blue-500' : 'bg-white border-gray-300 text-gray-900 focus:border-blue-500'}`;
+  // Use 16px font (text-base) on mobile to prevent auto-zoom, text-sm on desktop
+  const inputBase = `w-full text-base md:text-sm border rounded-lg p-2 outline-none transition-all ${isDarkMode ? 'bg-slate-800 border-slate-700 text-slate-100 focus:border-blue-500' : 'bg-white border-gray-300 text-gray-900 focus:border-blue-500'}`;
   const labelBase = `text-xs font-semibold uppercase tracking-wider mb-2 block ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`;
   const btnBase = `py-2 px-4 rounded-lg font-semibold text-sm transition-colors shadow-sm`;
 
@@ -129,7 +130,7 @@ const MapControls: React.FC<MapControlsProps> = ({
           /* Single Mode Input */
           <div className="flex flex-col gap-3">
              <textarea
-               className={`${inputBase} h-24 md:h-32 resize-none text-xs md:text-sm`}
+               className={`${inputBase} h-24 md:h-32 resize-none`}
                placeholder="e.g. US, UAE, India..."
                value={singleText}
                onChange={(e) => setSingleText(e.target.value)}
@@ -158,7 +159,7 @@ const MapControls: React.FC<MapControlsProps> = ({
                 <div className="flex gap-1.5 md:gap-2 mb-1.5 md:mb-2">
                   <input
                     type="text"
-                    className={`${inputBase} flex-1 text-xs`}
+                    className={`${inputBase} flex-1`}
                     placeholder="Group Name"
                     value={group.name}
                     onChange={(e) => updateGroup(group.id, 'name', e.target.value)}
@@ -172,7 +173,7 @@ const MapControls: React.FC<MapControlsProps> = ({
                 </div>
 
                 <textarea
-                  className={`${inputBase} h-16 md:h-20 text-[11px] md:text-xs resize-none`}
+                  className={`${inputBase} h-16 md:h-20 resize-none`}
                   placeholder="Countries..."
                   value={group.textInput}
                   onChange={(e) => updateGroup(group.id, 'textInput', e.target.value)}
@@ -221,14 +222,14 @@ const MapControls: React.FC<MapControlsProps> = ({
                 <input
                   type="text"
                   placeholder="Title (Optional)"
-                  className={`${inputBase} text-xs`}
+                  className={inputBase}
                   value={exportTitle}
                   onChange={e => setExportTitle(e.target.value)}
                 />
                 <input
                   type="text"
                   placeholder="Subtitle (Optional)"
-                  className={`${inputBase} text-xs`}
+                  className={inputBase}
                   value={exportSubtitle}
                   onChange={e => setExportSubtitle(e.target.value)}
                 />
