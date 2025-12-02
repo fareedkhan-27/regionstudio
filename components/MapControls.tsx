@@ -67,15 +67,15 @@ const MapControls: React.FC<MapControlsProps> = ({
   return (
     <div className={`flex flex-col h-full w-full md:w-96 border-b md:border-b-0 md:border-r ${isDarkMode ? 'bg-slate-900 border-slate-800 text-slate-200' : 'bg-white border-gray-200 text-gray-800'}`}>
 
-      {/* Header */}
-      <div className={`p-4 md:p-6 border-b ${isDarkMode ? 'border-slate-800' : 'border-gray-100'}`}>
-        <div className="flex justify-between items-center mb-4">
-          <h2 className={`text-sm font-semibold uppercase tracking-wider ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>
-            Map Controls
+      {/* Compact Header */}
+      <div className={`px-3 py-2 md:p-4 md:pb-3 border-b flex-shrink-0 ${isDarkMode ? 'border-slate-800' : 'border-gray-100'}`}>
+        <div className="flex justify-between items-center mb-2 md:mb-3">
+          <h2 className={`text-xs md:text-sm font-semibold uppercase tracking-wider ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>
+            Controls
           </h2>
           <button
             onClick={toggleTheme}
-            className={`p-2 rounded-full ${isDarkMode ? 'bg-slate-800 hover:bg-slate-700' : 'bg-gray-100 hover:bg-gray-200'}`}
+            className={`p-1.5 md:p-2 rounded-full text-lg md:text-base ${isDarkMode ? 'bg-slate-800 hover:bg-slate-700' : 'bg-gray-100 hover:bg-gray-200'}`}
             aria-label="Toggle theme"
           >
             {isDarkMode ? '🌙' : '☀️'}
@@ -83,41 +83,42 @@ const MapControls: React.FC<MapControlsProps> = ({
         </div>
 
         {/* Mode Toggles */}
-        <div className={`flex p-1 rounded-lg ${isDarkMode ? 'bg-slate-800' : 'bg-gray-100'}`}>
+        <div className={`flex p-0.5 md:p-1 rounded-lg ${isDarkMode ? 'bg-slate-800' : 'bg-gray-100'}`}>
           <button
             onClick={() => setMode('single')}
-            className={`flex-1 py-1.5 text-xs font-medium rounded-md transition-all ${mode === 'single' ? (isDarkMode ? 'bg-slate-600 text-white shadow' : 'bg-white text-blue-600 shadow') : 'text-gray-500 hover:text-gray-700'}`}
+            className={`flex-1 py-1 md:py-1.5 text-xs font-medium rounded-md transition-all ${mode === 'single' ? (isDarkMode ? 'bg-slate-600 text-white shadow' : 'bg-white text-blue-600 shadow') : 'text-gray-500 hover:text-gray-700'}`}
           >
-            Single Color
+            Single
           </button>
           <button
             onClick={() => setMode('multi')}
-            className={`flex-1 py-1.5 text-xs font-medium rounded-md transition-all ${mode === 'multi' ? (isDarkMode ? 'bg-slate-600 text-white shadow' : 'bg-white text-blue-600 shadow') : 'text-gray-500 hover:text-gray-700'}`}
+            className={`flex-1 py-1 md:py-1.5 text-xs font-medium rounded-md transition-all ${mode === 'multi' ? (isDarkMode ? 'bg-slate-600 text-white shadow' : 'bg-white text-blue-600 shadow') : 'text-gray-500 hover:text-gray-700'}`}
           >
-            Multi-Group
+            Multi
           </button>
         </div>
       </div>
 
-      {/* Content Area */}
-      <div className="flex-1 p-4 md:p-6 flex flex-col gap-4 md:gap-6 overflow-y-auto">
-        
-        {/* Presets Bar */}
+      {/* Scrollable Content Area */}
+      <div className="flex-1 min-h-0 overflow-y-auto">
+        <div className="p-3 md:p-6 flex flex-col gap-3 md:gap-5">
+
+        {/* Presets Bar - Compact on Mobile */}
         <div>
-           <label className={labelBase}>Quick Presets</label>
-           <div className="flex flex-wrap gap-2">
+           <label className={`${labelBase} text-[10px] md:text-xs`}>Presets</label>
+           <div className="flex flex-wrap gap-1.5 md:gap-2">
              {Object.entries(PRESETS).map(([name, codes]) => (
                <button
                  key={name}
                  onClick={() => applyPreset(codes)}
-                 className={`px-2 py-1 text-xs rounded border transition-colors ${isDarkMode ? 'border-slate-700 hover:bg-slate-800' : 'border-gray-200 hover:bg-gray-50'}`}
+                 className={`px-1.5 md:px-2 py-0.5 md:py-1 text-[10px] md:text-xs rounded border transition-colors ${isDarkMode ? 'border-slate-700 hover:bg-slate-800' : 'border-gray-200 hover:bg-gray-50'}`}
                >
                  {name.replace('_', ' ')}
                </button>
              ))}
              <button
                onClick={clearAll}
-               className={`px-2 py-1 text-xs rounded border text-red-500 transition-colors ${isDarkMode ? 'border-slate-700 hover:bg-slate-800' : 'border-gray-200 hover:bg-red-50'}`}
+               className={`px-1.5 md:px-2 py-0.5 md:py-1 text-[10px] md:text-xs rounded border text-red-500 transition-colors ${isDarkMode ? 'border-slate-700 hover:bg-slate-800' : 'border-gray-200 hover:bg-red-50'}`}
              >
                Clear
              </button>
@@ -126,151 +127,153 @@ const MapControls: React.FC<MapControlsProps> = ({
 
         {mode === 'single' ? (
           /* Single Mode Input */
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-3">
              <textarea
-               className={`${inputBase} h-40 resize-y`}
-               placeholder="e.g. United States, UAE, India..."
+               className={`${inputBase} h-24 md:h-32 resize-none text-xs md:text-sm`}
+               placeholder="e.g. US, UAE, India..."
                value={singleText}
                onChange={(e) => setSingleText(e.target.value)}
              />
-             
-             <div className="flex items-center gap-3">
+
+             <div className="flex items-center gap-2 md:gap-3">
                <input
                  type="color"
                  value={singleColor}
                  onChange={(e) => setSingleColor(e.target.value)}
-                 className="h-10 w-14 p-0 border-0 rounded cursor-pointer bg-transparent"
+                 className="h-9 md:h-10 w-12 md:w-14 p-0 border-0 rounded cursor-pointer bg-transparent"
                />
-               <span className="text-sm font-mono opacity-80">{singleColor}</span>
+               <span className="text-xs md:text-sm font-mono opacity-80">{singleColor}</span>
              </div>
           </div>
         ) : (
           /* Multi Mode Groups */
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2.5 md:gap-3">
             {groups.map((group, index) => (
-              <div key={group.id} className={`p-4 rounded-lg border ${isDarkMode ? 'bg-slate-800 border-slate-700' : 'bg-gray-50 border-gray-200'}`}>
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-xs font-bold opacity-50">GROUP {index + 1}</span>
-                  <button onClick={() => removeGroup(group.id)} className="text-xs text-red-500 hover:text-red-700">Remove</button>
+              <div key={group.id} className={`p-2.5 md:p-3 rounded-lg border ${isDarkMode ? 'bg-slate-800 border-slate-700' : 'bg-gray-50 border-gray-200'}`}>
+                <div className="flex justify-between items-center mb-1.5 md:mb-2">
+                  <span className="text-[10px] md:text-xs font-bold opacity-50">GROUP {index + 1}</span>
+                  <button onClick={() => removeGroup(group.id)} className="text-[10px] md:text-xs text-red-500 hover:text-red-700">Remove</button>
                 </div>
-                
-                <div className="flex gap-2 mb-2">
+
+                <div className="flex gap-1.5 md:gap-2 mb-1.5 md:mb-2">
                   <input
                     type="text"
-                    className={`${inputBase} flex-1`}
+                    className={`${inputBase} flex-1 text-xs`}
                     placeholder="Group Name"
                     value={group.name}
                     onChange={(e) => updateGroup(group.id, 'name', e.target.value)}
                   />
                   <input
                     type="color"
-                    className="h-10 w-10 rounded cursor-pointer border-0 bg-transparent"
+                    className="h-8 md:h-9 w-8 md:w-9 rounded cursor-pointer border-0 bg-transparent"
                     value={group.color}
                     onChange={(e) => updateGroup(group.id, 'color', e.target.value)}
                   />
                 </div>
-                
+
                 <textarea
-                  className={`${inputBase} h-24 text-xs`}
+                  className={`${inputBase} h-16 md:h-20 text-[11px] md:text-xs resize-none`}
                   placeholder="Countries..."
                   value={group.textInput}
                   onChange={(e) => updateGroup(group.id, 'textInput', e.target.value)}
                 />
               </div>
             ))}
-            
+
             <button
               onClick={addGroup}
-              className={`w-full py-2 border border-dashed rounded-lg text-sm ${isDarkMode ? 'border-slate-600 text-slate-400 hover:bg-slate-800' : 'border-gray-300 text-gray-500 hover:bg-gray-50'}`}
+              className={`w-full py-1.5 md:py-2 border border-dashed rounded-lg text-xs md:text-sm ${isDarkMode ? 'border-slate-600 text-slate-400 hover:bg-slate-800' : 'border-gray-300 text-gray-500 hover:bg-gray-50'}`}
             >
               + Add Group
             </button>
           </div>
         )}
 
-        {/* Generate Button */}
+        {/* Generate Button - Prominent */}
         <button
           onClick={onGenerate}
-          className={`${btnBase} bg-blue-600 hover:bg-blue-700 text-white w-full`}
+          className={`w-full py-2.5 md:py-3 rounded-lg font-semibold text-sm md:text-base transition-colors shadow-md bg-blue-600 hover:bg-blue-700 text-white`}
         >
-          Generate Region & Zoom
+          🗺️ Generate Map
         </button>
 
         {/* Unknown Terms Warning */}
         {unknownTerms.length > 0 && (
-          <div className={`text-xs p-3 rounded-md border ${isDarkMode ? 'bg-amber-900/20 border-amber-800 text-amber-200' : 'bg-amber-50 border-amber-200 text-amber-800'}`}>
+          <div className={`text-[10px] md:text-xs p-2 md:p-3 rounded-md border ${isDarkMode ? 'bg-amber-900/20 border-amber-800 text-amber-200' : 'bg-amber-50 border-amber-200 text-amber-800'}`}>
             <strong>Unknown:</strong> {unknownTerms.join(', ')}
           </div>
         )}
 
-        <hr className={isDarkMode ? 'border-slate-800' : 'border-gray-200'} />
+        <hr className={`${isDarkMode ? 'border-slate-800' : 'border-gray-200'} my-1`} />
 
-        {/* Export Section */}
+        {/* Export Section - Compact */}
         <div>
-          <button 
+          <button
             onClick={() => setShowExportOptions(!showExportOptions)}
-            className="flex items-center justify-between w-full text-sm font-semibold mb-3 opacity-80 hover:opacity-100"
+            className="flex items-center justify-between w-full text-xs md:text-sm font-semibold mb-2 md:mb-3 opacity-80 hover:opacity-100"
           >
-            <span>Export Options</span>
-            <span>{showExportOptions ? '−' : '+'}</span>
+            <span>📤 Export</span>
+            <span className="text-lg">{showExportOptions ? '−' : '+'}</span>
           </button>
-          
+
           {showExportOptions && (
-             <div className="flex flex-col gap-3 mb-4 animate-in fade-in slide-in-from-top-2">
-                <input 
-                  type="text" 
-                  placeholder="Map Title (Optional)"
-                  className={inputBase}
+             <div className="flex flex-col gap-2 md:gap-3 mb-3 md:mb-4 animate-in fade-in slide-in-from-top-2">
+                <input
+                  type="text"
+                  placeholder="Title (Optional)"
+                  className={`${inputBase} text-xs`}
                   value={exportTitle}
                   onChange={e => setExportTitle(e.target.value)}
                 />
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   placeholder="Subtitle (Optional)"
-                  className={inputBase}
+                  className={`${inputBase} text-xs`}
                   value={exportSubtitle}
                   onChange={e => setExportSubtitle(e.target.value)}
                 />
-                
-                <div className="flex items-center gap-3">
-                   <label className="text-xs opacity-70">Background:</label>
-                   <div className="flex items-center gap-2">
-                     <input 
-                       type="checkbox" 
+
+                <div className="flex items-center gap-2 md:gap-3 text-xs">
+                   <label className="opacity-70">BG:</label>
+                   <div className="flex items-center gap-1.5">
+                     <input
+                       type="checkbox"
                        id="transparentCheck"
                        checked={useTransparentBg}
                        onChange={e => setUseTransparentBg(e.target.checked)}
+                       className="w-3.5 h-3.5"
                      />
-                     <label htmlFor="transparentCheck" className="text-xs">Transparent</label>
+                     <label htmlFor="transparentCheck" className="text-[10px] md:text-xs">Transparent</label>
                    </div>
                    {!useTransparentBg && (
-                     <input 
-                       type="color" 
+                     <input
+                       type="color"
                        value={exportBg}
                        onChange={e => setExportBg(e.target.value)}
-                       className="h-6 w-8 rounded cursor-pointer"
+                       className="h-6 w-7 md:w-8 rounded cursor-pointer"
                      />
                    )}
                 </div>
              </div>
           )}
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-2 md:gap-3">
             <button
               onClick={() => onExport({ backgroundColor: useTransparentBg ? 'transparent' : exportBg, title: exportTitle, subtitle: exportSubtitle, format: 'png' })}
-              className={`${btnBase} border ${isDarkMode ? 'border-slate-700 hover:bg-slate-800' : 'border-gray-300 hover:bg-gray-50'}`}
+              className={`py-2 md:py-2.5 px-3 md:px-4 rounded-lg font-medium text-xs md:text-sm transition-colors shadow-sm border ${isDarkMode ? 'border-slate-700 hover:bg-slate-800' : 'border-gray-300 hover:bg-gray-50'}`}
             >
-              Export PNG
+              PNG
             </button>
             <button
               onClick={() => onExport({ backgroundColor: useTransparentBg ? 'transparent' : exportBg, title: exportTitle, subtitle: exportSubtitle, format: 'jpeg' })}
-              className={`${btnBase} border ${isDarkMode ? 'border-slate-700 hover:bg-slate-800' : 'border-gray-300 hover:bg-gray-50'}`}
+              className={`py-2 md:py-2.5 px-3 md:px-4 rounded-lg font-medium text-xs md:text-sm transition-colors shadow-sm border ${isDarkMode ? 'border-slate-700 hover:bg-slate-800' : 'border-gray-300 hover:bg-gray-50'}`}
             >
-              Export JPG
+              JPG
             </button>
           </div>
         </div>
 
+        </div>
       </div>
     </div>
   );

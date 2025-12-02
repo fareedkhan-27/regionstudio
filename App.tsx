@@ -184,7 +184,7 @@ const App: React.FC = () => {
         }`}
       >
         {/* Sidebar Controls */}
-        <div className="flex-shrink-0 z-20 h-[40vh] md:h-full w-full md:w-auto relative shadow-xl md:shadow-none">
+        <div className="flex-shrink-0 z-20 h-[50vh] md:h-full w-full md:w-auto relative shadow-xl md:shadow-none">
           <MapControls
             mode={mode}
             setMode={setMode}
