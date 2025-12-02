@@ -10,9 +10,10 @@ interface WorldMapProps {
   isDarkMode: boolean;
   zoomTrigger: number; // Increment to force zoom to selection
   onMount?: (svg: SVGSVGElement | null) => void;
+  onZoomBehaviorReady?: (zoomBehavior: d3.ZoomBehavior<SVGSVGElement, unknown>) => void;
 }
 
-const WorldMap: React.FC<WorldMapProps> = ({ colorMap, isDarkMode, zoomTrigger, onMount }) => {
+const WorldMap: React.FC<WorldMapProps> = ({ colorMap, isDarkMode, zoomTrigger, onMount, onZoomBehaviorReady }) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const gRef = useRef<SVGSVGElement>(null);
   const [dimensions, setDimensions] = useState({ width: 960, height: 600 });
@@ -84,7 +85,12 @@ const WorldMap: React.FC<WorldMapProps> = ({ colorMap, isDarkMode, zoomTrigger, 
       });
 
     svg.call(zoomBehavior.current);
-  }, [geoData]);
+
+    // Pass zoom behavior to parent
+    if (onZoomBehaviorReady && zoomBehavior.current) {
+      onZoomBehaviorReady(zoomBehavior.current);
+    }
+  }, [geoData, onZoomBehaviorReady]);
 
   // Handle Auto-Zoom to selection
   useEffect(() => {
@@ -172,13 +178,13 @@ const WorldMap: React.FC<WorldMapProps> = ({ colorMap, isDarkMode, zoomTrigger, 
   }
 
   return (
-    <div className={`w-full h-full relative overflow-hidden flex items-center justify-center ${isDarkMode ? 'bg-slate-900' : 'bg-slate-50'}`}>
+    <div className={`w-full h-full relative overflow-hidden ${isDarkMode ? 'bg-slate-900' : 'bg-slate-50'}`}>
       <svg
         ref={svgRef}
         width={dimensions.width}
         height={dimensions.height}
         viewBox={`0 0 ${dimensions.width} ${dimensions.height}`}
-        className="cursor-move touch-none block max-w-full"
+        className="cursor-move touch-none block w-full h-full"
       >
         {/* Background Ocean */}
         <rect width={dimensions.width} height={dimensions.height} fill={theme.ocean} />
@@ -205,17 +211,6 @@ const WorldMap: React.FC<WorldMapProps> = ({ colorMap, isDarkMode, zoomTrigger, 
           })}
         </g>
       </svg>
-      
-      {/* Map Controls Overlay */}
-      <div className="absolute bottom-4 right-4 flex flex-col gap-2">
-         <button 
-           onClick={resetZoom}
-           className={`px-3 py-1 rounded-full text-xs font-medium shadow-sm border backdrop-blur transition-colors
-             ${isDarkMode ? 'bg-slate-800/80 text-slate-200 border-slate-700 hover:bg-slate-700' : 'bg-white/80 text-gray-600 border-gray-200 hover:bg-gray-50'}`}
-         >
-           Reset Zoom
-         </button>
-      </div>
     </div>
   );
 };

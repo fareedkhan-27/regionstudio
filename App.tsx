@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import * as d3 from 'd3';
 import MapControls from './components/MapControls';
 import WorldMap from './components/WorldMap';
 import Legend from './components/Legend';
@@ -18,6 +19,7 @@ const App: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [mode, setMode] = useState<'single' | 'multi'>('single');
   const svgRef = useRef<SVGSVGElement | null>(null);
+  const zoomBehaviorRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null);
   const [zoomTrigger, setZoomTrigger] = useState(0);
 
   // --- Single Mode Data ---
@@ -132,6 +134,17 @@ const App: React.FC = () => {
     }
   };
 
+  // --- Reset Zoom Logic ---
+  const handleResetZoom = () => {
+    if (svgRef.current && zoomBehaviorRef.current) {
+      const svg = d3.select(svgRef.current);
+      svg.transition().duration(750).call(
+        zoomBehaviorRef.current.transform,
+        d3.zoomIdentity
+      );
+    }
+  };
+
   return (
     <>
       {/* App Header */}
@@ -152,7 +165,7 @@ const App: React.FC = () => {
               isDarkMode ? 'text-white' : 'text-gray-800'
             }`}
           >
-            Region Studio
+            Region Studio <span className="text-[#BE2BBB] text-xs font-normal ml-1">v1.0</span>
           </h1>
           <p
             className={`text-xs ${
@@ -166,12 +179,12 @@ const App: React.FC = () => {
 
       {/* Main Layout */}
       <div
-        className={`flex flex-col md:flex-row h-[calc(100vh-52px)] w-screen overflow-hidden ${
+        className={`flex flex-col md:flex-row h-[calc(100vh-68px)] w-full overflow-hidden ${
           isDarkMode ? 'bg-slate-950' : 'bg-gray-50'
         }`}
       >
         {/* Sidebar Controls */}
-        <div className="flex-shrink-0 z-20 h-1/2 md:h-full w-full md:w-auto relative shadow-xl">
+        <div className="flex-shrink-0 z-20 h-[40vh] md:h-full w-full md:w-auto relative shadow-xl md:shadow-none">
           <MapControls
             mode={mode}
             setMode={setMode}
@@ -194,13 +207,45 @@ const App: React.FC = () => {
         </div>
 
         {/* Main Map Area */}
-        <main className="flex-1 flex flex-col h-full w-full relative">
-          <div className="flex-1 relative">
+        <main className="flex-1 flex flex-col min-h-0 w-full relative">
+          {/* Floating Reset Zoom Button */}
+          <div className="absolute top-3 right-3 md:top-4 md:right-4 z-30">
+            <button
+              onClick={handleResetZoom}
+              className={`flex items-center gap-2 px-3 py-2 md:px-4 md:py-2.5 rounded-lg text-sm font-medium shadow-lg border transition-all duration-200 backdrop-blur-sm touch-manipulation
+                ${isDarkMode
+                  ? 'bg-slate-800/95 text-slate-200 border-slate-600/50 hover:bg-slate-700 hover:shadow-xl active:bg-slate-600'
+                  : 'bg-white/95 text-gray-700 border-gray-300/50 hover:bg-white hover:shadow-xl active:bg-gray-100'}`}
+              aria-label="Reset map zoom to default view"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="md:w-4 md:h-4"
+              >
+                <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                <path d="M21 3v5h-5"/>
+                <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+                <path d="M3 21v-5h5"/>
+              </svg>
+              <span className="hidden sm:inline">Reset View</span>
+            </button>
+          </div>
+
+          <div className="flex-1 relative overflow-hidden">
             <WorldMap
               colorMap={colorMap}
               isDarkMode={isDarkMode}
               zoomTrigger={zoomTrigger}
               onMount={(el) => (svgRef.current = el)}
+              onZoomBehaviorReady={(zoom) => (zoomBehaviorRef.current = zoom)}
             />
           </div>
 
@@ -217,7 +262,7 @@ const App: React.FC = () => {
               isDarkMode ? 'text-slate-500' : 'text-gray-500'
             }`}
           >
-            © {new Date().getFullYear()} Region Studio — Built with ❤️ by <span class="text-[#BE2BBB] font-medium">Fareed Khan</span>
+            © {new Date().getFullYear()} Region Studio — Built with ❤️ by <span className="text-[#BE2BBB] font-medium">Fareed Khan</span>
           </footer>
         </main>
       </div>

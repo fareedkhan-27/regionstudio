@@ -16,28 +16,28 @@ const PRESETS = {
 interface MapControlsProps {
   mode: 'single' | 'multi';
   setMode: (m: 'single' | 'multi') => void;
-  
+
   // Single Mode Props
   singleText: string;
   setSingleText: (t: string) => void;
   singleColor: string;
   setSingleColor: (c: string) => void;
-  
+
   // Multi Mode Props
   groups: Group[];
   updateGroup: (id: string, field: keyof Group, value: any) => void;
   addGroup: () => void;
   removeGroup: (id: string) => void;
-  
+
   // General
   onGenerate: () => void;
   onExport: (opts: { backgroundColor: string; title: string; subtitle: string; format: 'png' | 'jpeg' }) => void;
   unknownTerms: string[];
-  
+
   // Theme
   isDarkMode: boolean;
   toggleTheme: () => void;
-  
+
   // Preset Action
   applyPreset: (isoCodes: string[]) => void;
   clearAll: () => void;
@@ -65,20 +65,18 @@ const MapControls: React.FC<MapControlsProps> = ({
   const btnBase = `py-2 px-4 rounded-lg font-semibold text-sm transition-colors shadow-sm`;
 
   return (
-    <div className={`flex flex-col h-full w-full md:w-96 border-b md:border-b-0 md:border-r overflow-y-auto ${isDarkMode ? 'bg-slate-900 border-slate-800 text-slate-200' : 'bg-white border-gray-200 text-gray-800'}`}>
-      
+    <div className={`flex flex-col h-full w-full md:w-96 border-b md:border-b-0 md:border-r ${isDarkMode ? 'bg-slate-900 border-slate-800 text-slate-200' : 'bg-white border-gray-200 text-gray-800'}`}>
+
       {/* Header */}
-      <div className={`p-6 border-b ${isDarkMode ? 'border-slate-800' : 'border-gray-100'}`}>
-        <div className="flex justify-between items-start mb-4">
-          <div>
-            <h1 className="text-xl font-bold">Choropleth Studio</h1>
-            <p className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>
-              Visualize global data regions | by Fareed Khan
-            </p>
-          </div>
-          <button 
+      <div className={`p-4 md:p-6 border-b ${isDarkMode ? 'border-slate-800' : 'border-gray-100'}`}>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className={`text-sm font-semibold uppercase tracking-wider ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>
+            Map Controls
+          </h2>
+          <button
             onClick={toggleTheme}
             className={`p-2 rounded-full ${isDarkMode ? 'bg-slate-800 hover:bg-slate-700' : 'bg-gray-100 hover:bg-gray-200'}`}
+            aria-label="Toggle theme"
           >
             {isDarkMode ? '🌙' : '☀️'}
           </button>
@@ -102,7 +100,7 @@ const MapControls: React.FC<MapControlsProps> = ({
       </div>
 
       {/* Content Area */}
-      <div className="flex-1 p-6 flex flex-col gap-6 overflow-y-auto">
+      <div className="flex-1 p-4 md:p-6 flex flex-col gap-4 md:gap-6 overflow-y-auto">
         
         {/* Presets Bar */}
         <div>
